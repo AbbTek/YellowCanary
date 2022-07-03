@@ -1,5 +1,6 @@
 using AutoFixture;
 using AutoFixture.AutoMoq;
+using FluentAssertions;
 using Xunit;
 using YellowCanary.Application.Services.DataSources;
 
@@ -7,21 +8,28 @@ namespace YellowCanary.Application.Test.Services.DataSources;
 
 public class ExcelReaderServiceTest
 {
-    private IFixture _fixture;
-
     private IExcelReaderService _sut;
 
     public ExcelReaderServiceTest()
     {
-        _fixture = new Fixture()
+        var fixture = new Fixture()
             .Customize(new AutoMoqCustomization());
 
-        _sut = _fixture.Create<ExcelReaderService>();
+        _sut = fixture.Create<ExcelReaderService>();
     }
 
     [Fact]
     public void Should_read_excel_file()
     {
-        _sut.ReadFile("./TestFiles/Sample Super Data.xlsx");
+        // Arrange
+        const string path = "./TestFiles/Sample Super Data.xlsx";
+
+        // Action
+        var (payCodes, payslips, disbursements) = _sut.ReadFile(path);
+
+        // Assert
+        payCodes.Should().NotBeEmpty();
+        payslips.Should().NotBeEmpty();
+        disbursements.Should().NotBeEmpty();
     }
 }

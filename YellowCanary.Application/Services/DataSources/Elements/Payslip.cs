@@ -4,7 +4,7 @@ namespace YellowCanary.Application.Services.DataSources.Elements;
 
 public class Payslip
 {
-    public string Id { get; set; }
+    public Guid Id { get; set; }
 
     public LocalDate End { get; set; }
     

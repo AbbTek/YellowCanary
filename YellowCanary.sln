@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YellowCanary.Application", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YellowCanary.Application.Test", "YellowCanary.Application.Test\YellowCanary.Application.Test.csproj", "{CA62F5A9-2BBD-4DD3-97B3-EC1B2699B90A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YellowCanary.Console", "YellowCanary.Console\YellowCanary.Console.csproj", "{459BDF10-74FB-4BA1-B769-B71E217A3F3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{CA62F5A9-2BBD-4DD3-97B3-EC1B2699B90A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA62F5A9-2BBD-4DD3-97B3-EC1B2699B90A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA62F5A9-2BBD-4DD3-97B3-EC1B2699B90A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{459BDF10-74FB-4BA1-B769-B71E217A3F3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{459BDF10-74FB-4BA1-B769-B71E217A3F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{459BDF10-74FB-4BA1-B769-B71E217A3F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{459BDF10-74FB-4BA1-B769-B71E217A3F3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
