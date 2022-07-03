@@ -73,8 +73,15 @@ public class CalculateService : ICalculateService
             .ThenBy(g => g.EmployeeId);
 
         return (from payslip in payslipGroup
-            join disbursement in disbursementsGroup on new { payslip.EmployeeId, payslip.Quarter } equals new
-                { disbursement.EmployeeId, disbursement.Quarter } into g
+            join disbursement in disbursementsGroup on new
+            {
+                payslip.EmployeeId,
+                payslip.Quarter
+            } equals new
+            {
+                disbursement.EmployeeId,
+                disbursement.Quarter
+            } into g
             from d in g.DefaultIfEmpty()
             select new CalculateResult
             {
