@@ -35,9 +35,10 @@ public class MainService : BackgroundService
                 foreach (var line in result)
                 {
                     _logger.LogInformation(
-                        "Quarter {@Quarter} EmployeeCode {@EmployeeCode} Total OTE {@Ote:N0} Total Disbursement {@Disbursement:N0}",
-                        line.Quarter,
-                        line.EmployedId, line.TotalOte, line.TotalDisbursement);
+                        "Quarter {@Quarter} EmployeeCode {@EmployeeCode} Total OTE {@Ote:N0} " +
+                        "Total NoOTE {@NoOte:N0} Super Payable {@Super:N0} Total Disbursement {@Disbursement:N0}",
+                        line.Quarter, line.EmployedId, line.TotalOte, line.TotalNoOte, line.SuperPayable,
+                        line.TotalDisbursement);
                 }
             }
             catch (Exception e)

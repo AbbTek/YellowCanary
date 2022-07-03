@@ -11,6 +11,7 @@ public interface ICalculateService
 
 public class CalculateService : ICalculateService
 {
+    public const double SuperPercentage = 0.095;
     private readonly IExcelReaderService _excelReaderService;
 
     public CalculateService(IExcelReaderService excelReaderService)
@@ -24,7 +25,7 @@ public class CalculateService : ICalculateService
 
         var payslipsByQuarter = from payslip in payslips
             join payCode in payCodes on payslip.PayCodeId equals payCode.Id
-            where payCode.Treatment == OteTreatment.Ote
+            //where payCode.Treatment == OteTreatment.Ote
             select new
             {
                 Quarter = payslip.End.GetQuarter(),
@@ -33,16 +34,20 @@ public class CalculateService : ICalculateService
                 payCode.Treatment
             };
 
-        var payslipGroup = payslipsByQuarter.GroupBy(c => new
+        var payslipGroup = payslipsByQuarter
+            .GroupBy(c => new
             {
-                c.Quarter,
-                c.EmployeeId
+                c.EmployeeId,
+                c.Quarter
             })
             .Select(g => new
             {
                 g.Key.Quarter,
                 g.Key.EmployeeId,
-                TotalOET = g.Sum(c => c.Amount)
+                TotalOET = g.Where(g => g.Treatment == OteTreatment.Ote)
+                    .Sum(c => c.Amount),
+                TotalNoOET = g.Where(g => g.Treatment == OteTreatment.NoOte)
+                    .Sum(c => c.Amount)
             }).OrderBy(g => g.Quarter)
             .ThenBy(g => g.EmployeeId);
 
@@ -54,7 +59,8 @@ public class CalculateService : ICalculateService
                 disbursement.Amount
             };
 
-        var disbursementsGroup = disbursementsByQuarter.GroupBy(d => new
+        var disbursementsGroup = disbursementsByQuarter
+            .GroupBy(d => new
             {
                 d.Quarter,
                 d.EmployeeId,
@@ -75,7 +81,9 @@ public class CalculateService : ICalculateService
                 Quarter = $"Q{payslip.Quarter}",
                 EmployedId = payslip.EmployeeId,
                 TotalOte = payslip.TotalOET,
-                TotalDisbursement = d?.TotalDisbursement ?? 0
+                TotalNoOte = payslip.TotalNoOET,
+                TotalDisbursement = d?.TotalDisbursement ?? 0,
+                SuperPayable = payslip.TotalOET * SuperPercentage
             }).ToList();
     }
 }

@@ -2,11 +2,15 @@ namespace YellowCanary.Application.Services;
 
 public class CalculateResult
 {
-    public string Quarter { get; set; }
+    public string Quarter { get; init; }
 
-    public int EmployedId { get; set; }
+    public int EmployedId { get; init; }
+
+    public double TotalOte { get; init; }
     
-    public double TotalOte { get; set; }
-    
-    public double TotalDisbursement { get; set; }
+    public double TotalNoOte { get; init; }
+
+    public double TotalDisbursement { get; init; }
+
+    public double SuperPayable { get; init; }
 }
